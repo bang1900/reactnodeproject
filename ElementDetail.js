@@ -1,13 +1,12 @@
 // ElementDetail.js
 import React from "react";
 import { useParams } from "react-router-dom";
-import { statues } from "./data";
 
-function ElementDetail() {
+function ElementDetail({ statues }) {
   const { id } = useParams();
   const statueId = parseInt(id, 10);
 
-  // Find the statue by its ID
+  // No more import from data.js — we use the props from App.js
   const statue = statues.find((item) => item.id === statueId);
 
   if (!statue) {

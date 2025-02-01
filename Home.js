@@ -1,9 +1,10 @@
 // Home.js
 import React from "react";
 import { Link } from "react-router-dom";
-import { statues } from "./data";
 
-function Home() {
+// This component no longer has local state.
+// It just receives statues from props and displays them.
+function Home({ statues }) {
   return (
     <div>
       <h1>Welcome to My Mom's Statue Gallery</h1>
