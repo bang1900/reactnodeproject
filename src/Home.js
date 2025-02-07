@@ -9,7 +9,8 @@ function Home() {
     axios
       .get("http://localhost:8081/statues")
       .then((response) => {
-        setStatues(response.data); // Data comes directly from the backend
+        console.log("API Response:", response.data);
+        setStatues(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -18,15 +19,19 @@ function Home() {
 
   return (
     <div>
-      <h1>Welcome to My Mom's Statue Gallery</h1>
-      <p>Click on any statue below to learn more about it!</p>
+      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
+        Welcome to My Mom's Statue Gallery
+      </h1>
+      <p style={{ textAlign: "center" }}>
+        Click on any statue below to learn more about it!
+      </p>
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)", // ✅ Ensures 3 images per row
           gap: "20px",
-          marginTop: "20px",
+          justifyContent: "center",
+          padding: "20px",
         }}
       >
         {statues.map((statue) => (
@@ -40,14 +45,14 @@ function Home() {
             }}
           >
             <img
-              src={statue.image} // Use the image URL from the API
+              src={statue.image}
               alt={statue.name}
               onError={(e) =>
                 (e.target.src = "https://via.placeholder.com/200")
-              } // Fallback image
-              style={{ width: "200px", height: "auto", borderRadius: "10px" }}
+              }
+              style={{ width: "100%", height: "auto", borderRadius: "10px" }}
             />
-            <p style={{ marginTop: "10px" }}>
+            <p style={{ marginTop: "10px", fontSize: "16px" }}>
               <strong>{statue.name}</strong>
             </p>
           </Link>

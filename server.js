@@ -1,10 +1,11 @@
+// server.js
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const path = require("path");
-const bcrypt = require("bcryptjs"); // ✅ For password hashing
-const session = require("express-session"); // ✅ For user sessions
+const session = require("express-session");
+const bcrypt = require("bcryptjs");
 const dbSingleton = require("./dbSingleton.js");
 
 dotenv.config();
@@ -13,11 +14,16 @@ const app = express();
 const PORT = process.env.PORT || 8081;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(
   session({
-    secret: "your_secret_key", // Change this to a strong secret
+    secret: "your_secret_key",
     resave: false,
     saveUninitialized: false,
   })
@@ -30,30 +36,33 @@ app.use("/assets", express.static(path.join(__dirname, "assets")));
 const db = dbSingleton.getConnection();
 console.log("Connected to MySQL Database");
 
-// ✅ USER REGISTRATION (SIGN UP)
-app.post("/register", (req, res) => {
-  const { username, password, role } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ error: "Username and password required" });
-  }
-
-  const hashedPassword = bcrypt.hashSync(password, 10);
-  const userRole = role || "user"; // Default to 'user' if not specified
-
+// API Route to Get Statues from Database
+app.get("/statues", (req, res) => {
   db.query(
-    "INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
-    [username, hashedPassword, userRole],
+    "SELECT id, name, description, image FROM statues",
     (err, results) => {
       if (err) {
-        console.error("Error registering user:", err);
-        return res.status(500).json({ error: "Registration failed" });
+        console.error("Database error:", err);
+        return res.status(500).json({ error: "Database query failed" });
       }
-      res.json({ message: "User registered successfully!" });
+
+      // Add the full URL for local images
+      const statuesWithImages = results.map((statue) => {
+        const isLocalFile = !statue.image.startsWith("http");
+        return {
+          ...statue,
+          image: isLocalFile
+            ? `http://localhost:${PORT}/assets/${statue.image}` // Local file
+            : statue.image, // URL
+        };
+      });
+
+      res.json(statuesWithImages);
     }
   );
 });
 
-// ✅ USER LOGIN
+// User Login
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -65,7 +74,7 @@ app.post("/login", (req, res) => {
     [username],
     (err, results) => {
       if (err) {
-        console.error("Login error:", err);
+        console.error("Database error:", err);
         return res.status(500).json({ error: "Login failed" });
       }
 
@@ -90,7 +99,7 @@ app.post("/login", (req, res) => {
   );
 });
 
-// ✅ CHECK AUTHENTICATION STATUS
+// Check Authentication Status
 app.get("/auth-status", (req, res) => {
   if (req.session.user) {
     res.json({ isAuthenticated: true, user: req.session.user });
@@ -99,7 +108,7 @@ app.get("/auth-status", (req, res) => {
   }
 });
 
-// ✅ USER LOGOUT
+// User Logout
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -109,7 +118,11 @@ app.post("/logout", (req, res) => {
   });
 });
 
-// Start Server
+// Sample Route
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

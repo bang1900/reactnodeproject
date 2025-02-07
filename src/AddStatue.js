@@ -1,81 +1,162 @@
-// AddStatue.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AddStatue({ statues, setStatues }) {
-  // Local state for form inputs
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
 
-  // useNavigate allows us to programmatically navigate back to Home
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new statue object
-    const newStatue = {
-      id: statues.length + 1, // simplistic ID assignment
-      name,
-      description,
-      // Fallback image if none is provided
-      image: image || "https://via.placeholder.com/200",
-    };
+    if (!name || !description) {
+      alert("Name and description are required!");
+      return;
+    }
 
-    // Update the statues array in App.js
-    setStatues([...statues, newStatue]);
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    if (image) {
+      formData.append("image", image);
+    }
 
-    // Clear the form fields
-    setName("");
-    setDescription("");
-    setImage("");
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/statues",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-    // Optionally navigate back to the Home page
-    navigate("/");
+      const newStatue = {
+        id: response.data.statueId,
+        name,
+        description,
+        image: response.data.image,
+      };
+      setStatues([...statues, newStatue]);
+
+      setName("");
+      setDescription("");
+      setImage(null);
+
+      navigate("/");
+    } catch (error) {
+      console.error("Error adding statue:", error);
+    }
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Add a New Statue</h1>
+    <div
+      style={{
+        textAlign: "center",
+        padding: "20px",
+        maxWidth: "500px",
+        margin: "40px auto",
+        border: "1px solid #ddd",
+        borderRadius: "5px",
+        backgroundColor: "#ffffff",
+        boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      <h1
+        style={{ fontSize: "22px", marginBottom: "15px", fontWeight: "normal" }}
+      >
+        Add a New Statue
+      </h1>
+
       <form
         onSubmit={handleSubmit}
-        style={{ maxWidth: "400px", margin: "0 auto" }}
+        encType="multipart/form-data"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        <div style={{ marginBottom: "10px" }}>
-          <label>Statue Name:</label>
-          <br />
+        <div style={{ marginBottom: "15px", width: "90%" }}>
+          <label
+            style={{ display: "block", marginBottom: "5px", fontSize: "14px" }}
+          >
+            Statue Name:
+          </label>
           <input
             type="text"
             required
+            placeholder="Enter statue name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "8px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              fontSize: "14px",
+            }}
           />
         </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label>Description:</label>
-          <br />
+        <div style={{ marginBottom: "15px", width: "90%" }}>
+          <label
+            style={{ display: "block", marginBottom: "5px", fontSize: "14px" }}
+          >
+            Description:
+          </label>
           <textarea
             rows={3}
-            cols={30}
             required
+            placeholder="Enter description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "8px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              fontSize: "14px",
+            }}
           />
         </div>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label>Image URL (optional):</label>
-          <br />
+        <div style={{ marginBottom: "15px", width: "90%" }}>
+          <label
+            style={{ display: "block", marginBottom: "5px", fontSize: "14px" }}
+          >
+            Upload Image:
+          </label>
           <input
-            type="text"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+            style={{
+              width: "100%",
+              padding: "5px",
+              fontSize: "14px",
+            }}
           />
         </div>
 
-        <button type="submit">Add Statue</button>
+        <button
+          type="submit"
+          style={{
+            padding: "10px 20px",
+            borderRadius: "4px",
+            backgroundColor: "#007bff",
+            color: "white",
+            fontSize: "14px",
+            border: "none",
+            cursor: "pointer",
+            transition: "0.3s",
+            fontWeight: "normal",
+          }}
+        >
+          Add Statue
+        </button>
       </form>
     </div>
   );
