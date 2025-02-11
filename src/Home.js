@@ -37,7 +37,7 @@ function Home() {
         {statues.map((statue) => (
           <Link
             key={statue.id}
-            to={`/element/${statue.id}`}
+            to={`/statue/${statue.id}`}
             style={{
               textDecoration: "none",
               color: "inherit",

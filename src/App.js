@@ -8,6 +8,7 @@ import ElementDetail from "./ElementDetail";
 import Footer from "./Footer";
 import Login from "./Login";
 import AddStatue from "./AddStatue";
+import EditStatue from "./EditStatue";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,54 +39,13 @@ function App() {
 
   return (
     <Router>
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "center", // Center the navbar
-          alignItems: "center",
-          padding: "10px",
-          backgroundColor: "#f0f0f0",
-        }}
-      >
+      <nav style={{ display: "flex", justifyContent: "center", padding: "10px", backgroundColor: "#f0f0f0" }}>
         <div style={{ display: "flex", gap: "15px" }}>
-          <Link to="/" style={{ textDecoration: "none", color: "#333" }}>
-            Home
-          </Link>
-          <Link to="/about" style={{ textDecoration: "none", color: "#333" }}>
-            About
-          </Link>
-          <Link to="/contact" style={{ textDecoration: "none", color: "#333" }}>
-            Contact
-          </Link>
-          {user && (
-            <Link to="/add" style={{ textDecoration: "none", color: "#333" }}>
-              Add Statue
-            </Link>
-          )}
-          {user ? (
-            <>
-              <span style={{ marginLeft: "15px" }}>
-                Welcome, {user.username}
-              </span>
-              <button
-                onClick={handleLogout}
-                style={{
-                  marginLeft: "15px",
-                  background: "none",
-                  border: "none",
-                  color: "blue",
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                }}
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <Link to="/login" style={{ textDecoration: "none", color: "#333" }}>
-              Login
-            </Link>
-          )}
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/contact">Contact</Link>
+          {user && <Link to="/add">Add Statue</Link>}
+          {user ? <button onClick={handleLogout}>Logout</button> : <Link to="/login">Login</Link>}
         </div>
       </nav>
 
@@ -93,9 +53,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/element/:id" element={<ElementDetail />} />
+        <Route path="/statue/:id" element={<ElementDetail user={user} />} />
+        <Route path="/edit/:id" element={<EditStatue user={user} />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
-        <Route path="/add" element={<AddStatue />} />
       </Routes>
 
       <Footer />
