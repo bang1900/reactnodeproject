@@ -1,6 +1,11 @@
 // About.js
 import React from "react";
 
+/**
+ * About:
+ * A simple informational page describing the purpose and background
+ * of the statue collection. 
+ */
 function About() {
   return (
     <div>

@@ -1,6 +1,11 @@
 // Footer.js
 import React from "react";
 
+/**
+ * Footer:
+ * A simple footer component that appears at the bottom of the page.
+ * Includes styling for a centered layout and a background color.
+ */
 function Footer() {
   return (
     <footer
