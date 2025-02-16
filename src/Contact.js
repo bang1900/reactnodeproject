@@ -1,18 +1,17 @@
 /**
  * Contact.js
  *
- * This is a simple **Contact Page Component** for the React application.
- * - Displays a heading and an email address for inquiries.
- * - Serves as a static information page for users to contact the creator.
+ * A simple page that shows contact details.
  */
-
 import React from "react";
+import "./css/Contact.css";
 
 function Contact() {
+  // Renders a container with a heading and an email address
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1>Contact</h1>
-      <p>
+    <div className="contact-container">
+      <h1 className="contact-title">Contact</h1>
+      <p className="contact-text">
         Feel free to reach out at: <strong>bengertes@gmail.com</strong>
       </p>
     </div>

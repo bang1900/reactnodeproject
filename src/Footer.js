@@ -1,21 +1,14 @@
 // Footer.js
 import React from "react";
+import "./css/Footer.css";
 
 /**
  * Footer:
- * A simple footer component that appears at the bottom of the page.
- * Includes styling for a centered layout and a background color.
+ * A simple footer component displayed at the bottom of every page.
  */
 function Footer() {
   return (
-    <footer
-      style={{
-        textAlign: "center",
-        marginTop: "20px",
-        padding: "10px",
-        backgroundColor: "#f0f0f0",
-      }}
-    >
+    <footer className="footer-container">
       <p>Created by Benyamin Geerts</p>
     </footer>
   );

@@ -1,0 +1,15 @@
+/* Contact.css */
+
+.contact-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .contact-title {
+    margin-bottom: 10px;
+  }
+  
+  .contact-text {
+    color: #555;
+  }
+  

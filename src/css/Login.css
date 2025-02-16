@@ -1,0 +1,39 @@
+/* Login.css */
+
+.login-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .login-title {
+    margin-bottom: 20px;
+  }
+  
+  .login-error {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .login-form {
+    display: inline-block;
+    text-align: left;
+  }
+  
+  .login-field {
+    margin-bottom: 10px;
+  }
+  
+  .login-field input {
+    padding: 8px;
+    width: 200px;
+    box-sizing: border-box;
+  }
+  
+  .login-btn {
+    padding: 8px 15px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+  }
+  

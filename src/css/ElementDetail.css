@@ -1,0 +1,67 @@
+/* ElementDetail.css */
+
+.detail-error,
+.detail-loading {
+  text-align: center;
+  color: red;
+  margin-top: 20px;
+}
+
+.detail-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.detail-title {
+  margin-bottom: 10px;
+}
+
+.detail-image {
+  max-width: 500px;
+  border-radius: 10px;
+  margin: 20px auto;
+  display: block;
+}
+
+.detail-description {
+  max-width: 600px;
+  margin: 20px auto;
+  color: #555;
+}
+
+.detail-admin-buttons {
+  margin-top: 15px;
+}
+
+.detail-edit-btn,
+.detail-delete-btn {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.detail-edit-btn {
+  background-color: orange;
+}
+.detail-delete-btn {
+  background-color: red;
+}
+
+.detail-fav-btn {
+  padding: 10px 20px;
+  margin-left: 15px;
+  background-color: gray;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 15px;
+  display: inline-block;
+}
+
+.detail-fav-remove {
+  background-color: red;
+}

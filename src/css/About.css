@@ -1,0 +1,15 @@
+/* About.css */
+
+.about-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.about-title {
+  margin-bottom: 15px;
+}
+
+.about-text {
+  margin-bottom: 10px;
+  color: #555;
+}

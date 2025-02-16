@@ -1,0 +1,39 @@
+/* Favorites.css */
+
+.favorites-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .favorites-title {
+    margin-bottom: 20px;
+  }
+  
+  .favorites-empty {
+    color: #555;
+  }
+  
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .favorites-link {
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+  }
+  
+  .favorites-image {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .favorites-name {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  

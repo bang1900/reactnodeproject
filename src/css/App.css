@@ -1,0 +1,38 @@
+/* App.css */
+
+.app-nav {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.app-nav-links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.app-nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+.app-nav-links a:hover {
+  color: #007bff;
+}
+
+.app-nav-user {
+  margin-left: 15px;
+  color: #555;
+}
+
+.app-nav-logout {
+  margin-left: 15px;
+  background: none;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}

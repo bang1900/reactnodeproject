@@ -1,15 +1,8 @@
 /**
- * statues.js (sample data)
+ * statues.js
  *
- * This file exports a static array of statue objects.
- * Each statue has:
- *  - an id (unique identifier)
- *  - a name (title of the statue)
- *  - a description (brief overview)
- *  - an image (string representing a filename or URL)
- *
- * This is useful for local development or examples before
- * connecting to a real database or API.
+ * This file exports a static array of statue objects, used for
+ * local development or examples before connecting to a real database.
  */
 
 export const statues = [

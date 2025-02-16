@@ -1,171 +1,118 @@
 /**
  * App.js
+ * Main Router + Navigation
  *
- * Main React entry for routing and navigation.
- * - Calls /auth-status on load to check if the user is logged in.
- * - Tracks the logged-in user's state in `user`.
- * - Dynamically renders navigation links based on `user` (and role).
- * - Includes routes for registering, logging in, viewing/editing/adding statues, etc.
+ * This file manages:
+ *  - The global user state (tracking logged-in user)
+ *  - Navigation bar (conditionally showing links based on user/role)
+ *  - React Router's route definitions for pages like Home, About, etc.
  */
-
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 
+// Import page components
 import Home from "./Home";
 import About from "./About";
 import Contact from "./Contact";
 import ElementDetail from "./ElementDetail";
 import Footer from "./Footer";
 import Login from "./Login";
-import Register from "./Register"; // Page for user registration
+import Register from "./Register";
 import AddStatue from "./AddStatue";
 import EditStatue from "./EditStatue";
 import Favorites from "./Favorites";
 
+// Import global or shared CSS
+import "./css/App.css";
+
 function App() {
-  // Holds the current logged-in user object, or null if not logged in
+  // user: stores the logged-in user object or null if not logged in
   const [user, setUser] = useState(null);
 
   /**
    * useEffect:
-   *  - On initial load, check the server for auth status
-   *  - If authenticated, set the `user` state with the returned user object
+   *   On component mount, check the server for 'auth-status'
+   *   If authenticated, sets the 'user' state to the returned user object
+   *   If not, user remains null
    */
   useEffect(() => {
     axios
       .get("http://localhost:8081/auth-status", { withCredentials: true })
-      .then((response) => {
-        if (response.data.isAuthenticated) {
-          setUser(response.data.user);
+      .then((res) => {
+        if (res.data.isAuthenticated) {
+          setUser(res.data.user);
         }
       })
-      .catch((error) => {
-        console.error("Error checking auth status:", error);
-      });
+      .catch((err) => console.error("Error checking auth:", err));
   }, []);
 
   /**
    * handleLogout:
-   *  - Makes a POST request to the server's /logout endpoint
-   *  - Clears the `user` state on success (i.e. user is no longer logged in)
+   *   Calls the server's /logout endpoint
+   *   On success, clears the user state
    */
   const handleLogout = () => {
     axios
       .post("http://localhost:8081/logout", {}, { withCredentials: true })
-      .then(() => {
-        setUser(null);
-      })
-      .catch((error) => {
-        console.error("Logout failed:", error);
-      });
+      .then(() => setUser(null))
+      .catch((err) => console.error("Logout failed:", err));
   };
 
   return (
-    // BrowserRouter: Wraps our app in router context, enabling routes & links
     <Router>
       {/* Navigation Bar */}
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          padding: "10px",
-          backgroundColor: "#f0f0f0",
-        }}
-      >
-        <div style={{ display: "flex", gap: "15px" }}>
-          {/* Basic links, visible to all users (logged-in or not) */}
-          <Link to="/" style={{ textDecoration: "none", color: "#333" }}>
-            Home
-          </Link>
-          <Link to="/about" style={{ textDecoration: "none", color: "#333" }}>
-            About
-          </Link>
-          <Link to="/contact" style={{ textDecoration: "none", color: "#333" }}>
-            Contact
-          </Link>
+      <nav className="app-nav">
+        <div className="app-nav-links">
+          {/* Basic links always visible */}
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/contact">Contact</Link>
 
-          {/* Conditional links: Only show if user is logged in */}
+          {/* Links visible only if user is logged in */}
           {user && (
             <>
-              {/* Admin-only link to Add a Statue */}
-              {user.role === "admin" && (
-                <Link
-                  to="/add"
-                  style={{ textDecoration: "none", color: "#333" }}
-                >
-                  Add Statue
-                </Link>
-              )}
-
+              {/* Admin-only link to Add Statue */}
+              {user.role === "admin" && <Link to="/add">Add Statue</Link>}
               {/* Favorites link for any logged-in user */}
-              <Link
-                to="/favorites"
-                style={{ textDecoration: "none", color: "#333" }}
-              >
-                Favorites
-              </Link>
+              <Link to="/favorites">Favorites</Link>
             </>
           )}
 
-          {/* Authentication Info: 
-              If user is logged in, show logout & greeting;
-              otherwise, show links to login and register. */}
+          {/* If user is logged in, show logout & greeting; otherwise show login/register */}
           {user ? (
             <>
-              <span style={{ marginLeft: "15px" }}>
-                Welcome, {user.username}
-              </span>
-              <button
-                onClick={handleLogout}
-                style={{
-                  marginLeft: "15px",
-                  background: "none",
-                  border: "none",
-                  color: "blue",
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                }}
-              >
+              <span className="app-nav-user">Welcome, {user.username}</span>
+              <button className="app-nav-logout" onClick={handleLogout}>
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                style={{ textDecoration: "none", color: "#333" }}
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                style={{
-                  textDecoration: "none",
-                  color: "#333",
-                  marginLeft: "15px",
-                }}
-              >
-                Register
-              </Link>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
             </>
           )}
         </div>
       </nav>
 
-      {/* Main Application Routes */}
+      {/* Main Routes definition using React Router v6 */}
       <Routes>
+        {/* Home route, pass 'user' as prop so Home can use it if needed */}
+        <Route path="/" element={<Home user={user} />} />
+
         {/* Public pages */}
-        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
 
-        {/* Statue routes */}
+        {/* Statue detail & editing pages */}
         <Route path="/statue/:id" element={<ElementDetail user={user} />} />
         <Route path="/edit/:id" element={<EditStatue user={user} />} />
+
+        {/* Admin-only add new statue page */}
         <Route path="/add" element={<AddStatue user={user} />} />
 
-        {/* Favorites page (requires logged-in user) */}
+        {/* Favorites page (requires user) */}
         <Route path="/favorites" element={<Favorites />} />
 
         {/* Auth pages */}
@@ -173,7 +120,7 @@ function App() {
         <Route path="/register" element={<Register />} />
       </Routes>
 
-      {/* Footer is rendered at the bottom of every page */}
+      {/* Footer is displayed on every page */}
       <Footer />
     </Router>
   );

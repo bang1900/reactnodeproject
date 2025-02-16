@@ -1,0 +1,50 @@
+/* EditStatue.css */
+
+.editstatue-error,
+.editstatue-loading {
+  text-align: center;
+  color: red;
+}
+
+.editstatue-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.editstatue-title {
+  margin-bottom: 20px;
+}
+
+.editstatue-form {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.editstatue-field {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.editstatue-field label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.editstatue-field input,
+.editstatue-field textarea {
+  padding: 8px;
+  width: 100%;
+  resize: none;
+}
+
+.editstatue-submit-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
