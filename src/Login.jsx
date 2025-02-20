@@ -33,7 +33,7 @@ function Login({ setUser }) {
   };
 
   return (
-    <div className="login-container">
+    <div className="container">
       <h1 className="login-title">Login</h1>
       {error && <p className="login-error">{error}</p>}
 

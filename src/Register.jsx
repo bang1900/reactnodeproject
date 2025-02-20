@@ -60,7 +60,7 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
+    <div className="container">
       <h2 className="register-title">Register</h2>
 
       {error && <p className="register-error">{error}</p>}

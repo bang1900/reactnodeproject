@@ -33,7 +33,7 @@ function App() {
   /**
    * useEffect:
    *   On component mount, check the server for 'auth-status'
-   *   If authenticated, sets the 'user' state to the returned user object
+   *   If authenticated, set the 'user' state to the returned user object
    *   If not, user remains null
    */
   useEffect(() => {
@@ -60,69 +60,78 @@ function App() {
   };
 
   return (
-    <Router>
-      {/* Navigation Bar */}
-      <nav className="app-nav">
-        <div className="app-nav-links">
-          {/* Basic links always visible */}
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
+    <div className="page-container">
+      <Router>
+        {/* 
+          content-wrap takes up the "flex: 1" space.
+          The Footer is placed outside of it, so it sits at the bottom
+          for short pages and below scroll for tall pages.
+        */}
+        <div className="content-wrap">
+          {/* Navigation Bar */}
+          <nav className="app-nav">
+            <div className="app-nav-links">
+              {/* Basic links always visible */}
+              <Link to="/">Home</Link>
+              <Link to="/about">About</Link>
+              <Link to="/contact">Contact</Link>
 
-          {/* Links visible only if user is logged in */}
-          {user && (
-            <>
-              {/* Admin-only link to Add Statue */}
-              {user.role === "admin" && <Link to="/add">Add Statue</Link>}
-              {/* Favorites link for any logged-in user */}
-              <Link to="/favorites">Favorites</Link>
-            </>
-          )}
+              {/* Links visible only if user is logged in */}
+              {user && (
+                <>
+                  {/* Admin-only link to Add Statue */}
+                  {user.role === "admin" && <Link to="/add">Add Statue</Link>}
+                  {/* Favorites link for any logged-in user */}
+                  <Link to="/favorites">Favorites</Link>
+                </>
+              )}
 
-          {/* If user is logged in, show logout & greeting; otherwise show login/register */}
-          {user ? (
-            <>
-              <span className="app-nav-user">Welcome, {user.username}</span>
-              <button className="app-nav-logout" onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
-            </>
-          )}
+              {/* If user is logged in, show logout & greeting; otherwise show login/register */}
+              {user ? (
+                <>
+                  <span className="app-nav-user">Welcome, {user.username}</span>
+                  <button className="app-nav-logout" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">Login</Link>
+                  <Link to="/register">Register</Link>
+                </>
+              )}
+            </div>
+          </nav>
+
+          {/* Main Routes definition using React Router v6 */}
+          <Routes>
+            {/* Home route, pass 'user' as prop so Home can use it if needed */}
+            <Route path="/" element={<Home user={user} />} />
+
+            {/* Public pages */}
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+
+            {/* Statue detail & editing pages */}
+            <Route path="/statue/:id" element={<ElementDetail user={user} />} />
+            <Route path="/edit/:id" element={<EditStatue user={user} />} />
+
+            {/* Admin-only add new statue page */}
+            <Route path="/add" element={<AddStatue user={user} />} />
+
+            {/* Favorites page (requires user) */}
+            <Route path="/favorites" element={<Favorites />} />
+
+            {/* Auth pages */}
+            <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
         </div>
-      </nav>
 
-      {/* Main Routes definition using React Router v6 */}
-      <Routes>
-        {/* Home route, pass 'user' as prop so Home can use it if needed */}
-        <Route path="/" element={<Home user={user} />} />
-
-        {/* Public pages */}
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-
-        {/* Statue detail & editing pages */}
-        <Route path="/statue/:id" element={<ElementDetail user={user} />} />
-        <Route path="/edit/:id" element={<EditStatue user={user} />} />
-
-        {/* Admin-only add new statue page */}
-        <Route path="/add" element={<AddStatue user={user} />} />
-
-        {/* Favorites page (requires user) */}
-        <Route path="/favorites" element={<Favorites />} />
-
-        {/* Auth pages */}
-        <Route path="/login" element={<Login setUser={setUser} />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-
-      {/* Footer is displayed on every page */}
-      <Footer />
-    </Router>
+        {/* Footer is displayed on every page, pinned at bottom on short pages */}
+        <Footer />
+      </Router>
+    </div>
   );
 }
 

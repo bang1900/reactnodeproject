@@ -12,7 +12,7 @@ import "./css/About.css"; // Import associated CSS for styling
 function About() {
   // Renders a container with a title and descriptive paragraphs
   return (
-    <div className="about-container">
+    <div className="container">
       <h1 className="about-title">About</h1>
       <p className="about-text">This page is all about my mom’s statues.</p>
       <p className="about-text">

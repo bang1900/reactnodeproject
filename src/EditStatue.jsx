@@ -84,7 +84,7 @@ function EditStatue({ user }) {
   }
 
   return (
-    <div className="editstatue-container">
+    <div className="container">
       <h1 className="editstatue-title">Edit Statue</h1>
       {error && <p className="editstatue-error">{error}</p>}
 

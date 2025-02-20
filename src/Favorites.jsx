@@ -25,7 +25,7 @@ function Favorites() {
   }, []);
 
   return (
-    <div className="favorites-container">
+    <div className="container">
       <h1 className="favorites-title">My Favorite Statues</h1>
 
       {favorites.length === 0 ? (

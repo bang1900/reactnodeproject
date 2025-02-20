@@ -1,5 +1,30 @@
-/* App.css */
+/* Reset or base styles for html/body to ensure full height */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
+/* 
+  The outer container uses flexbox to create a "sticky footer" pattern.
+  The content area will stretch to push the footer down.
+*/
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 100% of the viewport height */
+}
+
+/* 
+  This area grows to fill remaining vertical space,
+  ensuring the footer is at the bottom if page content is short.
+*/
+.content-wrap {
+  flex: 1;
+}
+
+/* ============ Nav Styles ============ */
 .app-nav {
   display: flex;
   justify-content: center;
@@ -18,6 +43,7 @@
   color: #333;
   font-weight: bold;
 }
+
 .app-nav-links a:hover {
   color: #007bff;
 }
@@ -35,4 +61,10 @@
   text-decoration: underline;
   cursor: pointer;
   font-weight: bold;
+}
+
+.container {
+  max-width: 1000px; /* or 1200px, or any width you want */
+  margin: 0 auto;    /* this horizontally centers */
+  padding: 20px;     /* optional spacing inside the container */
 }

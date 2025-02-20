@@ -9,7 +9,7 @@ import "./css/Contact.css";
 function Contact() {
   // Renders a container with a heading and an email address
   return (
-    <div className="contact-container">
+    <div className="container">
       <h1 className="contact-title">Contact</h1>
       <p className="contact-text">
         Feel free to reach out at: <strong>bengertes@gmail.com</strong>

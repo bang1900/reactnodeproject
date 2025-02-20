@@ -102,7 +102,7 @@ function ElementDetail({ user }) {
   }
 
   return (
-    <div className="detail-container">
+    <div className="container">
       <h1 className="detail-title">{statue.name}</h1>
       <img src={statue.image} alt={statue.name} className="detail-image" />
       <p className="detail-description">{statue.description}</p>

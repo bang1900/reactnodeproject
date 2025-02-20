@@ -29,7 +29,7 @@ function Home({ user }) {
   }
 
   return (
-    <div className="home-container">
+    <div className="container">
       <h1 className="home-title">Welcome to My Mom's Statue Gallery</h1>
       <p className="home-subtitle">
         Click on any statue below to learn more about it!

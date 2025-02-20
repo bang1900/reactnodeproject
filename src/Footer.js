@@ -8,7 +8,7 @@ import "./css/Footer.css";
  */
 function Footer() {
   return (
-    <footer className="footer-container">
+    <footer className="container">
       <p>Created by Benyamin Geerts</p>
     </footer>
   );
