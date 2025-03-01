@@ -7,7 +7,6 @@ import React from "react";
 import "./css/Contact.css";
 
 function Contact() {
-  // Renders a container with a heading and an email address
   return (
     <div className="container">
       <h1 className="contact-title">Contact</h1>

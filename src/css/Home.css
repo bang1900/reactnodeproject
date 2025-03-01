@@ -1,48 +1,46 @@
 /* Home.css */
 
-  
-  /* Error Text */
-  .home-error {
-    text-align: center;
-    color: red;
-    margin-top: 20px;
-  }
-  
-  /* Title & Subtitle */
-  .home-title {
-    margin-bottom: 20px;
-  }
-  .home-subtitle {
-    margin-bottom: 10px;
-    color: #555;
-  }
-  
-  /* Grid Styles */
-  .home-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  /* Link Styles */
-  .home-statue-link {
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-  }
-  
-  /* Image & Name Styles */
-  .home-statue-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  .home-statue-name {
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
-  
+/* Error Text */
+.home-error {
+  text-align: center;
+  color: red;
+  margin-top: 20px;
+}
+
+/* Title & Subtitle */
+.home-title {
+  margin-bottom: 20px;
+}
+.home-subtitle {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Grid Styles */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Link Styles */
+.home-statue-link {
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+}
+
+/* Image & Name Styles */
+.home-statue-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.home-statue-name {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}

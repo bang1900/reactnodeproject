@@ -1,9 +1,5 @@
 /**
  * server.js
- *
- * Same logic as your single-file server, but now we
- * import the routes from separate files. The final URLs
- * remain unchanged because we mount each router at "/".
  */
 const express = require("express");
 const cors = require("cors");
@@ -42,7 +38,7 @@ app.use(
 // Serve static assets
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 
-// Import your new route files
+// Import your route files
 const userRoutes = require("./routes/users");
 const statueRoutes = require("./routes/statues");
 const favoritesRoutes = require("./routes/favorites");

@@ -1,62 +1,64 @@
 /* AddStatue.css */
 
 .addstatue-unauthorized {
-    text-align: center;
-    color: red;
-    margin: 20px;
-  }
-  
-  .addstatue-container {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .addstatue-title {
-    margin-bottom: 20px;
-  }
-  
-  .addstatue-error {
-    color: red;
-  }
-  
-  .addstatue-form {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .addstatue-field {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .addstatue-field label {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .addstatue-field input,
-  .addstatue-field textarea {
-    padding: 8px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .addstatue-or {
-    text-align: center;
-    margin: 10px 0;
-  }
-  
-  .addstatue-submit-btn {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-  }
-  
+  text-align: center;
+  color: red;
+  margin: 20px;
+}
+
+.addstatue-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.addstatue-title {
+  margin-bottom: 20px;
+}
+
+.addstatue-error {
+  color: red;
+}
+.addstatue-success {
+  color: green;
+}
+
+.addstatue-form {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.addstatue-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.addstatue-field label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.addstatue-field input,
+.addstatue-field textarea {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.addstatue-or {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.addstatue-submit-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}

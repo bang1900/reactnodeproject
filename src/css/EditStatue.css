@@ -6,6 +6,15 @@
   color: red;
 }
 
+.editstatue-success {
+  text-align: center;
+  color: green;
+}
+
+.editstatue-container {
+  text-align: center;
+  padding: 20px;
+}
 
 .editstatue-title {
   margin-bottom: 20px;
@@ -22,7 +31,7 @@
 .editstatue-field {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  text-align: center;
 }
 
 .editstatue-field label {

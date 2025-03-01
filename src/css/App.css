@@ -63,8 +63,9 @@ body {
   font-weight: bold;
 }
 
+/* Reusable container class for centering content & setting a max width */
 .container {
-  max-width: 1000px; /* or 1200px, or any width you want */
-  margin: 0 auto;    /* this horizontally centers */
-  padding: 20px;     /* optional spacing inside the container */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
 }

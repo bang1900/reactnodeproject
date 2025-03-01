@@ -1,4 +1,3 @@
-// EditStatue.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -6,8 +5,8 @@ import "./css/EditStatue.css";
 
 /**
  * EditStatue:
- * A component for editing an existing statue record.
- * Only accessible to admins.
+ * A component for editing an existing statue record (admin-only).
+ * Uses inline error/success messages instead of 'alert()'.
  */
 function EditStatue({ user }) {
   // Extract 'id' from URL params
@@ -18,9 +17,11 @@ function EditStatue({ user }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [error, setError] = useState("");
 
-  // Fetch statue details by ID on component mount
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  // Fetch statue details by ID on mount
   useEffect(() => {
     axios
       .get(`http://localhost:8081/statues/${id}`)
@@ -35,46 +36,47 @@ function EditStatue({ user }) {
       });
   }, [id]);
 
-  /**
-   * handleSubmit:
-   *   Validates admin, checks if any fields changed,
-   *   then sends a PUT request to update the statue.
-   */
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
 
+    // Verify admin
     if (!user || user.role !== "admin") {
-      alert("Unauthorized. Only admins can edit statues.");
+      setError("Unauthorized. Only admins can edit statues.");
       return;
     }
 
     try {
+      // Check if anything changed
       const updatedStatue = {};
       if (name !== statue.name) updatedStatue.name = name;
       if (description !== statue.description)
         updatedStatue.description = description;
       if (image !== statue.image) updatedStatue.image = image;
 
-      // If no fields changed, show error
       if (Object.keys(updatedStatue).length === 0) {
         setError("No changes were made.");
         return;
       }
 
-      // PUT request with updated fields
+      // PUT request
       await axios.put(`http://localhost:8081/statues/${id}`, updatedStatue, {
         withCredentials: true,
       });
 
-      alert("Statue updated successfully!");
-      navigate(`/statue/${id}`);
+      setSuccess("Statue updated successfully! Redirecting...");
+      setTimeout(() => {
+        navigate(`/statue/${id}`);
+      }, 1500);
     } catch (err) {
       console.error("Error updating statue:", err);
       setError("Failed to update statue. Please try again.");
     }
   };
 
-  if (error) {
+  if (error && !statue) {
+    // If we got an error before statue loaded
     return <p className="editstatue-error">{error}</p>;
   }
 
@@ -84,9 +86,11 @@ function EditStatue({ user }) {
   }
 
   return (
-    <div className="container">
+    <div className="editstatue-container">
       <h1 className="editstatue-title">Edit Statue</h1>
+
       {error && <p className="editstatue-error">{error}</p>}
+      {success && <p className="editstatue-success">{success}</p>}
 
       <form className="editstatue-form" onSubmit={handleSubmit}>
         {/* Statue Name Field */}

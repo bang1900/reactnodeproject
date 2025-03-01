@@ -64,8 +64,7 @@ function App() {
       <Router>
         {/* 
           content-wrap takes up the "flex: 1" space.
-          The Footer is placed outside of it, so it sits at the bottom
-          for short pages and below scroll for tall pages.
+          The Footer is placed below, so it stays at the bottom for short pages.
         */}
         <div className="content-wrap">
           {/* Navigation Bar */}

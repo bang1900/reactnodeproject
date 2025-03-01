@@ -1,4 +1,3 @@
-// AddStatue.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,7 +12,7 @@ import "./css/AddStatue.css";
  *   - Image (via file upload or URL)
  *
  * Displays an "Unauthorized" message if accessed by a non-admin user.
- * On successful submission, navigates back to the home page.
+ * On successful submission, shows a success message inline and then navigates home.
  */
 function AddStatue({ user }) {
   // Local states for the form fields
@@ -21,12 +20,14 @@ function AddStatue({ user }) {
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  const [error, setError] = useState("");
 
-  // React Router's hook for programmatic navigation
+  // State for error and success messages
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const navigate = useNavigate();
 
-  // Check admin privileges; if not admin, show a message and stop.
+  // Check admin privileges; if not admin, show a message inline
   if (!user || user.role !== "admin") {
     return (
       <p className="addstatue-unauthorized">
@@ -35,17 +36,10 @@ function AddStatue({ user }) {
     );
   }
 
-  /**
-   * handleSubmit
-   *
-   * Triggered when the form is submitted. Performs validation checks:
-   *  - Ensures name and description aren't empty
-   *  - Requires either a file or a URL for the image
-   * Then sends a POST request (multipart form data) to the backend.
-   * If successful, alerts the user and navigates to Home.
-   */
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form reload
+    e.preventDefault();
+    setError("");
+    setSuccess("");
 
     // Basic validation
     if (!name.trim() || !description.trim()) {
@@ -59,9 +53,6 @@ function AddStatue({ user }) {
       return;
     }
 
-    // Clear any previous errors
-    setError("");
-
     try {
       // Construct form data for the POST request
       const formData = new FormData();
@@ -74,15 +65,17 @@ function AddStatue({ user }) {
         formData.append("image", imageUrl);
       }
 
-      // Make API call to add the statue (requires admin)
+      // Make API call to add the statue
       await axios.post("http://localhost:8081/statues", formData, {
         headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true, // include session cookies
+        withCredentials: true,
       });
 
-      // Confirm success to the user
-      alert("Statue added successfully!");
-      navigate("/");
+      // Display success inline, then navigate home after 2 seconds
+      setSuccess("Statue added successfully! Redirecting...");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (err) {
       console.error("Error adding statue:", err);
       setError("Failed to add statue. Please try again.");
@@ -93,10 +86,10 @@ function AddStatue({ user }) {
     <div className="addstatue-container">
       <h1 className="addstatue-title">Add a New Statue</h1>
 
-      {/* Display error messages if any */}
+      {/* Inline error/success messages */}
       {error && <p className="addstatue-error">{error}</p>}
+      {success && <p className="addstatue-success">{success}</p>}
 
-      {/* Form for statue creation */}
       <form className="addstatue-form" onSubmit={handleSubmit}>
         {/* Statue Name Field */}
         <div className="addstatue-field">
@@ -123,13 +116,9 @@ function AddStatue({ user }) {
         {/* File Upload Field */}
         <div className="addstatue-field">
           <label>Upload Image (File):</label>
-          <input
-            type="file"
-            onChange={(e) => setImageFile(e.target.files[0])}
-          />
+          <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
         </div>
 
-        {/* Separator text */}
         <p className="addstatue-or">OR</p>
 
         {/* Image URL Field */}

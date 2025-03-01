@@ -1,63 +1,45 @@
 /* ElementDetail.css */
 
-.detail-error,
-.detail-loading {
-  text-align: center;
-  color: red;
-  margin-top: 20px;
+/* Container that holds everything in a column, centered horizontally */
+.detail-container {
+  display: flex;
+  flex-direction: column; /* stack elements vertically */
+  align-items: center; /* center horizontally */
+  margin: 0 auto;
+  padding: 20px; /* optional spacing */
 }
 
-
+/* The title and description will be centered by default due to align-items: center. */
 .detail-title {
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .detail-image {
-  max-width: 500px;
+  max-width: 800px; 
+  width: 100%; 
   border-radius: 10px;
-  margin: 20px auto;
+  margin: 20px 0;
   display: block;
 }
 
+/* Center the description text */
 .detail-description {
   max-width: 600px;
+  text-align: center;
   margin: 20px auto;
   color: #555;
 }
 
+/* Make admin buttons appear side-by-side, centered */
 .detail-admin-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
   margin-top: 15px;
 }
 
-.detail-edit-btn,
-.detail-delete-btn {
-  padding: 10px 20px;
-  margin: 0 10px;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.detail-edit-btn {
-  background-color: orange;
-}
-.detail-delete-btn {
-  background-color: red;
-}
-
+/* Center favorite button as well (if needed) */
 .detail-fav-btn {
-  padding: 10px 20px;
-  margin-left: 15px;
-  background-color: gray;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
   margin-top: 15px;
-  display: inline-block;
-}
-
-.detail-fav-remove {
-  background-color: red;
 }

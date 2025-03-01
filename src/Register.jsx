@@ -9,7 +9,7 @@ import "./css/Register.css";
  *  - Username
  *  - Password
  *  - Confirm Password
- *  - T&C checkbox (if desired)
+ *  - T&C checkbox 
  */
 function Register() {
   const navigate = useNavigate();
@@ -38,6 +38,13 @@ function Register() {
 
     if (!agreeToTerms) {
       setError("Please agree to the Terms & Conditions.");
+      return;
+    }
+
+    // Check password complexity: 8+ chars, letters & digits
+    const passRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passRegex.test(password)) {
+      setError("Password must be at least 8 chars, including letters & digits.");
       return;
     }
 
